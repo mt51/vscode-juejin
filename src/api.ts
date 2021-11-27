@@ -19,7 +19,6 @@ export function getArticles(params: IArticleReq) {
   return axios.post('https://api.juejin.cn/recommend_api/v1/article/recommend_cate_feed?uuid=7032205944063542798&aid=6587', params).then(({ data }) => {
     return data;
   }).catch((e) => {
-    console.log(e);
     vscode.window.showInformationMessage('获取数据失败');
   });
 }
@@ -56,7 +55,6 @@ export interface IGithubReq {
 
 export function getGithub(params: IGithubReq) {
   return axios.post('https://e.juejin.cn/resources/github', params).then(({ data }) => data).catch((e) => {
-    console.log(e);
     vscode.window.showInformationMessage('获取数据失败');
   });
 }

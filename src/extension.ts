@@ -43,7 +43,6 @@ export function activate(context: vscode.ExtensionContext) {
           try {
             params = JSON.parse(message.data);
           } catch (e) {
-            console.log(e);
             return;
           }
 
@@ -73,9 +72,7 @@ export function activate(context: vscode.ExtensionContext) {
                   period: GithubPeriodEnum.day,
                 };
               }
-              console.log('fetch:githubs', message);
               getGithub(params).then(({ data }) => {
-                console.log('after get github', data);
                 panel.webview.postMessage({ type: 'fetched:githubs', data });
               });
               break;
@@ -100,6 +97,9 @@ function getHtmlForWebview(webview: vscode.Webview, extensionUri: vscode.Uri) {
     'web_dist/js',
     'bundle.js'
   );
+
+	const stylesMainUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'web_dist/css',
+	'main.css'));
 
   // And the uri we use to load this script in the webview
   const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
@@ -126,8 +126,9 @@ function getHtmlForWebview(webview: vscode.Webview, extensionUri: vscode.Uri) {
 			-->
 
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			${process.env.NODE_ENV !== 'development' ? '' : `<link href="${stylesMainUri}" rel="stylesheet">`}
 
-			<title>Cat Coding</title>
+			<title>掘金 vscode 插件</title>
 		</head>
 		<body>
 			<div id="root"></div>
