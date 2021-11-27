@@ -1,0 +1,84 @@
+.github-module {
+  flex: 0 1 auto;
+}
+
+.github-filters {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  height: 48px;
+  line-height: 48px;
+  background-color: var(--color-secondary-bg);
+  border-bottom: 1px solid var(--color-divider);
+  color: var(--color-primary);
+}
+
+.github-list {
+  width: calc(100vw - 266px);
+  padding: 10px;
+  background-color: var(--color-secondary-bg);
+}
+
+.github-item {
+  display: inline-block;
+  width: 49%;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.github-item:hover {
+  background-color: var(--color-hover-bg);
+  cursor: pointer;
+}
+
+.github-title, .github-title:hover, .github-title:focus, .github-title:active {
+  color: var(--color-brand)!important;
+}
+
+.github-title img {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.github-detail {
+  color: var(--color-secondary-app);
+}
+
+.github-desc, .github-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.github-detail-info {
+  color: var(--color-thirdly);
+}
+
+.github-star {
+  display: inline-flex;
+  margin-right: 20px;
+}
+
+.github-start-icon {
+  display: inline-block;
+  height: 17px;
+  line-height: 19px;
+  margin-right: 5px;
+}
+
+.github-icon {
+  font-style: normal;
+}
+
+.cycle-icon {
+  display: inline-block;
+  margin-right: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.github-lang{
+  display: inline-block;
+}

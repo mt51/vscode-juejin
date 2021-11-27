@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/css/main.css",
+    "main.js": "/js/bundle.js",
+    "main.js.map": "/js/bundle.js.map",
+    "css/main.css.map": "/css/main.css.map",
+    "index.html": "/index.html",
+    "js/bundle.js.LICENSE.txt": "/js/bundle.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "css/main.css",
+    "js/bundle.js"
+  ]
+}
