@@ -9,12 +9,19 @@ import {
   GithubPeriodEnum,
 } from './api';
 
+let cachedPanel: vscode.WebviewPanel;
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
     'vscode-juejin.jueJin',
     () => {
+
+      if (cachedPanel) {
+        cachedPanel.reveal(vscode.ViewColumn.One);
+        return;
+      }
       const panel = vscode.window.createWebviewPanel(
         'article',
         '掘金插件',
@@ -84,6 +91,8 @@ export function activate(context: vscode.ExtensionContext) {
         undefined,
         context.subscriptions
       );
+
+      cachedPanel = panel;
     }
   );
 
@@ -148,4 +157,8 @@ function getNonce() {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  if (cachedPanel) {
+    cachedPanel.dispose();
+  }
+}
