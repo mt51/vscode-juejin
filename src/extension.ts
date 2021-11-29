@@ -126,7 +126,7 @@ function getHtmlForWebview(webview: vscode.Webview, extensionUri: vscode.Uri) {
 			-->
 
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			${process.env.NODE_ENV !== 'development' ? '' : `<link href="${stylesMainUri}" rel="stylesheet">`}
+			${process.env.NODE_ENV === 'development' ? '' : `<link href="${stylesMainUri}" rel="stylesheet">`}
 
 			<title>掘金 vscode 插件</title>
 		</head>

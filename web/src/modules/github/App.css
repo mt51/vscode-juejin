@@ -13,6 +13,16 @@
   color: var(--color-primary);
 }
 
+.github-filters-title {
+  padding-left: 8px;
+}
+
+.github-filters-title img {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
 .github-list {
   width: calc(100vw - 266px);
   padding: 10px;
@@ -33,12 +43,6 @@
 
 .github-title, .github-title:hover, .github-title:focus, .github-title:active {
   color: var(--color-brand)!important;
-}
-
-.github-title img {
-  width: 28px;
-  height: 28px;
-  margin-right: 8px;
 }
 
 .github-detail {
