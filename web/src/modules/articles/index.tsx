@@ -4,10 +4,9 @@ import { vscode } from '../../utils';
 import './App.css';
 import 'antd/dist/antd.min.css';
 
-
 export enum SortTypeEnum {
   hot = 200,
-  new = 300
+  new = 300,
 }
 export interface IArticleReq {
   cate_id: string | number;
@@ -58,28 +57,33 @@ function App() {
   const [query, setQuery] = useState<IArticleReq>(defaultQuery);
   const [loading, setLoading] = useState(false);
 
-  const handleGetArticle = useCallback((event) =>  {
+  const handleGetArticle = useCallback((event) => {
     const { type, data } = event.data;
     if (type === 'fetched:articles') {
       setLoading(false);
-      setArticles(data.data.map((item: any) => {
-        return {
-          id: item.article_id,
-          title: item.article_info.title,
-          tags: item.tags?.map((item: { tag_name: string }) => item.tag_name).join(' · '),
-          commentCount: item.article_info.comment_count,
-          diggCount: item.article_info.digg_count
-        };
-      }));
+      setArticles(
+        data.data.map((item: any) => {
+          return {
+            id: item.article_id,
+            title: item.article_info.title,
+            tags: item.tags
+              ?.map((item: { tag_name: string }) => item.tag_name)
+              .join(' · '),
+            commentCount: item.article_info.comment_count,
+            diggCount: item.article_info.digg_count,
+          };
+        })
+      );
     }
   }, []);
 
   useEffect(() => {
     setLoading(true);
-    vscode && vscode.postMessage({
-      type: 'fetch:articles',
-      data: JSON.stringify(query)
-    })
+    vscode &&
+      vscode.postMessage({
+        type: 'fetch:articles',
+        data: JSON.stringify(query),
+      });
   }, [query]);
 
   useEffect(() => {
@@ -87,8 +91,8 @@ function App() {
 
     return () => {
       window.removeEventListener('message', handleGetArticle);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSelectCategory = useCallback(
@@ -124,27 +128,43 @@ function App() {
           />
         </div>
         <div className="article-sort-types">
-          <span className={`${query.sort_type === SortTypeEnum.hot ? 'active-sort-type' : ''}`} onClick={() => handleChangeSortType(SortTypeEnum.hot)}>
+          <span
+            className={`${
+              query.sort_type === SortTypeEnum.hot ? 'active-sort-type' : ''
+            }`}
+            onClick={() => handleChangeSortType(SortTypeEnum.hot)}
+          >
             热度
           </span>
-          <span className={`${query.sort_type === SortTypeEnum.new ? 'active-sort-type' : ''}`} onClick={() => handleChangeSortType(SortTypeEnum.new)}>
+          <span
+            className={`${
+              query.sort_type === SortTypeEnum.new ? 'active-sort-type' : ''
+            }`}
+            onClick={() => handleChangeSortType(SortTypeEnum.new)}
+          >
             最新
           </span>
         </div>
       </div>
 
       <Spin spinning={loading}>
-      <div className="article-list">{articles.map(item => {
-        return <div className="article-item" key={item.id}>
-          <h3 className="article-title">{item.title}</h3>
-          <div className="article-detail">
-            <div>{item.tags}</div>
-            <div>
-              赞{item.diggCount} · 评论{item.commentCount}
-            </div>
-          </div>
-        </div>;
-      })}</div>
+        <div className="article-list">
+          {articles.map((item) => {
+            return (
+              <div className="article-item" key={item.id}>
+                <a href={`https://juejin.cn/post/${item.id}`}>
+                  <h3 className="article-title">{item.title}</h3>
+                  <div className="article-detail">
+                    <div>{item.tags}</div>
+                    <div>
+                      赞{item.diggCount} · 评论{item.commentCount}
+                    </div>
+                  </div>
+                </a>
+              </div>
+            );
+          })}
+        </div>
       </Spin>
     </div>
   );
