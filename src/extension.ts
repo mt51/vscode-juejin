@@ -9,7 +9,7 @@ import {
   GithubPeriodEnum,
 } from './api';
 
-let cachedPanel: vscode.WebviewPanel;
+let cachedPanel: vscode.WebviewPanel | null;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -42,6 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
 
       panel.onDidDispose(() => {
         panel.dispose();
+        cachedPanel = null;
       });
 
       panel.webview.onDidReceiveMessage(
@@ -52,6 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
           } catch (e) {
             return;
           }
+
 
           switch (message.type) {
             case 'fetch:articles':
