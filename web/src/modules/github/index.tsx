@@ -61,7 +61,6 @@ function App() {
     const { type, data } = event.data;
     setLoading(false);
     if (type === 'fetched:githubs') {
-      console.log('handleGetGithubs', event);
       setGithubs(data);
     }
   }, []);

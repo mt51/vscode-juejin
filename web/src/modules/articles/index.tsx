@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Select, Spin } from 'antd';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { vscode } from '../../utils';
 import './App.css';
 import 'antd/dist/antd.min.css';
@@ -56,34 +57,41 @@ function App() {
   const [articles, setArticles] = useState<IArticle[]>([]);
   const [query, setQuery] = useState<IArticleReq>(defaultQuery);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   const handleGetArticle = useCallback((event) => {
     const { type, data } = event.data;
     if (type === 'fetched:articles') {
+      const newArticles = data.data.map((item: any) => {
+        return {
+          id: item.article_id,
+          title: item.article_info.title,
+          tags: item.tags
+            ?.map((item: { tag_name: string }) => item.tag_name)
+            .join(' · '),
+          commentCount: item.article_info.comment_count,
+          diggCount: item.article_info.digg_count,
+        };
+      })
+      setArticles(prevState => {
+        return [...prevState, ...newArticles]
+      });
       setLoading(false);
-      setArticles(
-        data.data.map((item: any) => {
-          return {
-            id: item.article_id,
-            title: item.article_info.title,
-            tags: item.tags
-              ?.map((item: { tag_name: string }) => item.tag_name)
-              .join(' · '),
-            commentCount: item.article_info.comment_count,
-            diggCount: item.article_info.digg_count,
-          };
-        })
-      );
+      setHasMore(data.has_more);
     }
   }, []);
 
   useEffect(() => {
+    if (loading) {
+      return;
+    }
     setLoading(true);
     vscode &&
       vscode.postMessage({
         type: 'fetch:articles',
         data: JSON.stringify(query),
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {
@@ -94,6 +102,8 @@ function App() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
 
   const handleSelectCategory = useCallback(
     (value: number | string) => {
@@ -114,6 +124,13 @@ function App() {
     },
     [query]
   );
+
+  const handleLoadMore = useCallback(() => {
+    setQuery((prevState) => ({
+      ...prevState,
+      cursor: `${+prevState.cursor + 1}`
+    }))
+  }, [])
 
   return (
     <div className="article-module">
@@ -146,9 +163,21 @@ function App() {
           </span>
         </div>
       </div>
+      <div className="article-list" id="scrollableDiv">
 
-      <Spin spinning={loading}>
-        <div className="article-list">
+        <InfiniteScroll
+          dataLength={articles.length}
+          next={handleLoadMore}
+          hasMore={hasMore}
+          loader={<p style={{ textAlign: 'center', marginTop: 16 }}><Spin spinning /></p>}
+          endMessage={
+            <p style={{ textAlign: 'center' }}>
+              <b>已显示全部内容</b>
+            </p>
+          }
+          scrollableTarget="scrollableDiv"
+        >
+        
           {articles.map((item) => {
             return (
               <div className="article-item" key={item.id}>
@@ -164,8 +193,9 @@ function App() {
               </div>
             );
           })}
+        
+        </InfiniteScroll>
         </div>
-      </Spin>
     </div>
   );
 }

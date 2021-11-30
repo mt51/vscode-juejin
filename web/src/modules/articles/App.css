@@ -1,7 +1,8 @@
 .article-module {
-  width: 240px;
+  width: 260px;
   margin-right: 16px;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
 .article-filters {
@@ -24,6 +25,11 @@
 
 .article-sort-types .active-sort-type {
   color: var(--color-brand);
+}
+
+.article-list {
+  height: calc(100vh - 48px);
+  overflow-y: auto;
 }
 
 .article-item {
