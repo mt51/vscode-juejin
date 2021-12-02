@@ -37,6 +37,10 @@
   background-color: var(--color-secondary-bg);
 }
 
+.article-item:hover {
+  background-color: var(--color-hover-bg);
+}
+
 .article-title {
   color: var(--color-brand);;
   font-weight: normal;
