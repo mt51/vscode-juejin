@@ -117,12 +117,13 @@ function App() {
 
   const handleChangeSortType = useCallback(
     (value: SortTypeEnum) => {
+      setArticles([]);
       setQuery({
-        ...query,
+        ...defaultQuery,
         sort_type: value,
       });
     },
-    [query]
+    []
   );
 
   const handleLoadMore = useCallback(() => {
