@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { vscode } from '../../utils';
 import './App.css';
 import 'antd/dist/antd.min.css';
+import { ReactComponent as RefreshIcon } from './refresh.svg';
 
 export enum SortTypeEnum {
   hot = 200,
@@ -133,6 +134,16 @@ function App() {
     }))
   }, [])
 
+  const handleClickRefresh = useCallback(() => {
+    if (!loading) {
+      setArticles([]);
+      setQuery({
+        ...defaultQuery,
+        cate_id: query.cate_id,
+      })
+    }
+  }, [loading, query.cate_id])
+
   return (
     <div className="article-module">
       <div className="article-filters">
@@ -146,6 +157,7 @@ function App() {
           />
         </div>
         <div className="article-sort-types">
+          <RefreshIcon className="refresh-icon" width={16} height={16} onClick={handleClickRefresh}/>
           <span
             className={`${
               query.sort_type === SortTypeEnum.hot ? 'active-sort-type' : ''

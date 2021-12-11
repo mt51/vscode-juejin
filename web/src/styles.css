@@ -4,6 +4,41 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-brand: #1E80FF;
+  --color-brand-light: #E8F3FF;
+  --color-nav-title: #86909C;
+  --color-nav-popup-bg: #FFFFFF;
+  --color-primary: #1D2129;
+  --color-secondary-app: #4E5969;
+  --color-thirdly: #86909C;
+  --color-hover: #1e80ff;
+  --color-hover-thirdly: #86909c;
+  --color-dropdown-text: #1E80FF;
+  --color-divider: #E5E6EB;
+  --color-main-bg: #f4f5f5;
+  --color-secondary-bg: #FFFFFF;
+  --color-thirdly-bg: #f4f5f5;
+  --color-hover-bg: #E8F3FF;
+  --color-comment-bg: rgba(244, 245, 245, 0.5);
+  --hover-bg: linear-gradient( 90deg, rgba(232, 243, 255, 0) 0%, rgba(232, 243, 255, 0.8) 25.09%, #e8f3ff 50.16%, rgba(232, 243, 255, 0.8) 75.47%, rgba(232, 243, 255, 0) 100% );
+  --color-mask: rgba(0, 0, 0, 0.4);
+  --color-quick-nav-text: #ffffff;
+  --color-nav-bg: rgba(255, 255, 255, 0.13);
+  --color-nav-selected-border: rgba(229, 230, 235, 0.3);
+  --color-tips: #F53F3F;
+  --color-fourthly: #C9CDD4;
+  --color-shadow: rgba(0, 0, 0, 0.16);
+  --color-grey-triangle: #e5e6eb;
+  --color-icon-search: #ffffff;
+  --color-navbar-icon: #1e80ff;
+  --color-layout-dropdown-bg: rgba(232, 243, 255, 0.8);
+  --color-layout-title: #4E5969;
+  --color-layout-title-active: #1E80FF;
+  --color-layout-icon-outline: rgba(30, 128, 255, 0.5);
+  --color-layout-icon-fill: #ffffff;
+}
+
 /* 浅色主题 */
 .body.vscode-light {
   --color-brand: #1E80FF;

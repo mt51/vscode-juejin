@@ -17,6 +17,11 @@
   box-sizing: border-box;
 }
 
+.article-sort-types {
+  display: inline-flex;
+  align-items: center;
+}
+
 .article-sort-types span {
   margin-left: 8px;
   color: var(--color-secondary-app);
@@ -53,4 +58,12 @@
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
+}
+
+.refresh-icon {
+  cursor: pointer;
+}
+
+.refresh-icon:hover path {
+  fill: var(--color-brand)
 }
